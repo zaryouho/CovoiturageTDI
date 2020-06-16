@@ -31,10 +31,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-7">
-                            <h1 class="text-white font-weight-bold">S'inscrire/Connection</h1>
+                            <h1 class="text-white font-weight-bold">Inscription/Connexion</h1>
                             <div class="custom-breadcrumbs">
                                 <a href="#">Acceuil</a> <span class="mx-2 slash">/</span>
-                                <span class="text-white"><strong>Connection</strong></span>
+                                <span class="text-white"><strong>Connexion</strong></span>
                             </div>
                         </div>
                     </div>
@@ -46,32 +46,38 @@
                     <div class="row">
                         <div class="col-lg-6 mb-5">
                             <h2 class="mb-4">Inscription</h2>
-                            <form action="#" class="p-4 border rounded">
+                            <form method="post" action="@Url.Action("AddUtilisateur","utilisateurs")" class="p-4 border rounded">
 
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
                                         <label class="text-black" for="fname">Email</label>
-                                        <input type="text" id="fname" class="form-control" placeholder="Email address">
+                                        <input type="text" id="fname" name="Email" class="form-control" placeholder="Adresse E-mail">
                                     </div>
                                 </div>
                                 @*adding the user name text box*@
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
                                         <label class="text-black" for="fname">Nom</label>
-                                        <input type="text" id="fname" class="form-control" placeholder="Nom">
+                                        <input type="text" id="fname" name="Nom" class="form-control" placeholder="Nom">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12 mb-3 mb-md-0">
+                                        <label class="text-black" for="fname">Prénom</label>
+                                        <input type="text" id="fname" name="Prenom" class="form-control" placeholder="Prénom">
                                     </div>
                                 </div>
                                 @*end user name text box*@
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
                                         <label class="text-black" for="fname">Password</label>
-                                        <input type="password" id="fname" class="form-control" placeholder="Password">
+                                        <input type="password" name="Password" id="password1" class="form-control" placeholder="Password">
                                     </div>
                                 </div>
                                 <div class="row form-group mb-4">
                                     <div class="col-md-12 mb-3 mb-md-0">
                                         <label class="text-black" for="fname">Re-Type Password</label>
-                                        <input type="password" id="fname" class="form-control" placeholder="Re-type Password">
+                                        <input type="password" name="Password" id="password2" class="form-control" placeholder="Re-type Password">
                                     </div>
                                 </div>
 
@@ -84,8 +90,8 @@
                             </form>
                         </div>
                         <div class="col-lg-6">
-                            <h2 class="mb-4">Connection</h2>
-                            <form action="#" class="p-4 border rounded">
+                            <h2 class="mb-4">Connexion</h2>
+                            <form method="post" action="VerifyUtilisateur" class="p-4 border rounded">
 
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
@@ -109,7 +115,7 @@
 
                                 <div class="row form-group">
                                     <div class="col-md-12">
-                                        <input type="submit" value="Connection" class="btn px-4 btn-primary text-white">
+                                        <input type="submit" value="Connexion" class="btn px-4 btn-primary text-white">
                                     </div>
                                 </div>
 
@@ -123,8 +129,25 @@
 
         </div>
 
+        <script>
+            window.onload = function () {
+                document.getElementById("password1").onchange = validatePassword;
+                document.getElementById("password2").onchange = validatePassword;
+            }
+
+            function validatePassword() {
+                var pass2 = document.getElementById("password2").value;
+                var pass1 = document.getElementById("password1").value;
+                if (pass1 != pass2)
+                    document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+                else
+                    document.getElementById("password2").setCustomValidity('');
+                //empty string means no validation error
+            }
+        </script>
 
     </body>
+
 
 
 

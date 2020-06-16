@@ -1,0 +1,937 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="covoiturageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="conversation">
+          <Key>
+            <PropertyRef Name="idConversation" />
+          </Key>
+          <Property Name="idConversation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUtilisateur1" Type="int" />
+          <Property Name="idUtilisateur2" Type="int" />
+          <Property Name="Message" Type="text" />
+          <Property Name="idConversationM" Type="int" />
+        </EntityType>
+        <EntityType Name="evaluation">
+          <Key>
+            <PropertyRef Name="idEvaluation" />
+          </Key>
+          <Property Name="idEvaluation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUtilisateur1" Type="int" />
+          <Property Name="idUtilisateur2" Type="int" />
+          <Property Name="idTrajet" Type="int" />
+          <Property Name="rating" Type="int" />
+          <Property Name="plainte" Type="text" />
+          <Property Name="dateEvaluation" Type="datetime" />
+        </EntityType>
+        <EntityType Name="marque">
+          <Key>
+            <PropertyRef Name="idmarque" />
+          </Key>
+          <Property Name="idmarque" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nommarque" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="modele">
+          <Key>
+            <PropertyRef Name="idmodele" />
+          </Key>
+          <Property Name="idmodele" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomModele" Type="varchar" MaxLength="50" />
+          <Property Name="idmarque" Type="int" />
+        </EntityType>
+        <EntityType Name="pays">
+          <Key>
+            <PropertyRef Name="idpays" />
+          </Key>
+          <Property Name="idpays" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nompays" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="reservation">
+          <Key>
+            <PropertyRef Name="idReservation" />
+          </Key>
+          <Property Name="idReservation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateReservation" Type="datetime" />
+          <Property Name="message" Type="text" />
+          <Property Name="nbplaces" Type="int" />
+          <Property Name="valide" Type="bit" />
+          <Property Name="idTrajet" Type="int" />
+          <Property Name="idUtilisateur" Type="int" />
+        </EntityType>
+        <EntityType Name="trajet">
+          <Key>
+            <PropertyRef Name="idtrajet" />
+          </Key>
+          <Property Name="idtrajet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="datecreation" Type="date" />
+          <Property Name="datelimiteinscription" Type="date" />
+          <Property Name="idVilleDepart" Type="int" />
+          <Property Name="idVilleArrivee" Type="int" />
+          <Property Name="pointDepart" Type="varchar" MaxLength="150" />
+          <Property Name="pointArrivee" Type="varchar" MaxLength="150" />
+          <Property Name="datedepart" Type="date" />
+          <Property Name="heuredepart" Type="time" Precision="7" />
+          <Property Name="heurearrivee" Type="time" Precision="7" />
+          <Property Name="nbplaces" Type="int" />
+          <Property Name="prix" Type="money" />
+          <Property Name="remarque" Type="text" />
+          <Property Name="Autoroute" Type="bit" />
+          <Property Name="fumeur" Type="bit" />
+          <Property Name="musique" Type="bit" />
+          <Property Name="annimaux" Type="bit" />
+          <Property Name="complet" Type="bit" />
+          <Property Name="immatriculation" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="utilisateur">
+          <Key>
+            <PropertyRef Name="idUtilisateur" />
+          </Key>
+          <Property Name="idUtilisateur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="50" />
+          <Property Name="dateN" Type="date" />
+          <Property Name="sexe" Type="varchar" MaxLength="50" />
+          <Property Name="mdp" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="photo" Type="varchar" MaxLength="50" />
+          <Property Name="photoCIN1" Type="varchar" MaxLength="50" />
+          <Property Name="photoCIN2" Type="varchar" MaxLength="50" />
+          <Property Name="telephone" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="valide" Type="bit" />
+          <Property Name="hashCode" Type="varchar" MaxLength="50" />
+          <Property Name="presentation" Type="text" />
+        </EntityType>
+        <EntityType Name="ville">
+          <Key>
+            <PropertyRef Name="idville" />
+          </Key>
+          <Property Name="idville" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomville" Type="varchar" MaxLength="50" />
+          <Property Name="idpays" Type="int" />
+        </EntityType>
+        <EntityType Name="voiture">
+          <Key>
+            <PropertyRef Name="immatriculation" />
+          </Key>
+          <Property Name="immatriculation" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="couleur" Type="varchar" MaxLength="50" />
+          <Property Name="annee" Type="int" />
+          <Property Name="idModele" Type="int" />
+          <Property Name="idUtilisateur" Type="int" />
+        </EntityType>
+        <Association Name="fkConversationConversation">
+          <End Role="conversation" Type="Self.conversation" Multiplicity="0..1" />
+          <End Role="conversation1" Type="Self.conversation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="conversation">
+              <PropertyRef Name="idConversation" />
+            </Principal>
+            <Dependent Role="conversation1">
+              <PropertyRef Name="idConversationM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkConversationUtilisateur1">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="conversation" Type="Self.conversation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="conversation">
+              <PropertyRef Name="idUtilisateur1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkConversationUtilisateur2">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="conversation" Type="Self.conversation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="conversation">
+              <PropertyRef Name="idUtilisateur2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkEvaluationTrajet">
+          <End Role="trajet" Type="Self.trajet" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trajet">
+              <PropertyRef Name="idtrajet" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="idTrajet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkEvaluationUtilisateur1">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="idUtilisateur1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkEvaluationUtilisateur2">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="idUtilisateur2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkModeleMarque">
+          <End Role="marque" Type="Self.marque" Multiplicity="0..1" />
+          <End Role="modele" Type="Self.modele" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marque">
+              <PropertyRef Name="idmarque" />
+            </Principal>
+            <Dependent Role="modele">
+              <PropertyRef Name="idmarque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkReservationTrajet">
+          <End Role="trajet" Type="Self.trajet" Multiplicity="0..1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trajet">
+              <PropertyRef Name="idtrajet" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="idTrajet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkReservationUtilisateur">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="idUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTrajetVilleArivee">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="trajet" Type="Self.trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="idville" />
+            </Principal>
+            <Dependent Role="trajet">
+              <PropertyRef Name="idVilleArrivee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTrajetVilleDepart">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="trajet" Type="Self.trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="idville" />
+            </Principal>
+            <Dependent Role="trajet">
+              <PropertyRef Name="idVilleDepart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTrajetVoiture">
+          <End Role="voiture" Type="Self.voiture" Multiplicity="0..1" />
+          <End Role="trajet" Type="Self.trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voiture">
+              <PropertyRef Name="immatriculation" />
+            </Principal>
+            <Dependent Role="trajet">
+              <PropertyRef Name="immatriculation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkVillePays">
+          <End Role="pays" Type="Self.pays" Multiplicity="0..1" />
+          <End Role="ville" Type="Self.ville" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pays">
+              <PropertyRef Name="idpays" />
+            </Principal>
+            <Dependent Role="ville">
+              <PropertyRef Name="idpays" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkVoitureModele">
+          <End Role="modele" Type="Self.modele" Multiplicity="0..1" />
+          <End Role="voiture" Type="Self.voiture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modele">
+              <PropertyRef Name="idmodele" />
+            </Principal>
+            <Dependent Role="voiture">
+              <PropertyRef Name="idModele" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkVoitureUtilisateur">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="voiture" Type="Self.voiture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="voiture">
+              <PropertyRef Name="idUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="covoiturageModelStoreContainer">
+          <EntitySet Name="conversation" EntityType="Self.conversation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="evaluation" EntityType="Self.evaluation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="marque" EntityType="Self.marque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="modele" EntityType="Self.modele" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pays" EntityType="Self.pays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reservation" EntityType="Self.reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trajet" EntityType="Self.trajet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="utilisateur" EntityType="Self.utilisateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ville" EntityType="Self.ville" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="voiture" EntityType="Self.voiture" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fkConversationConversation" Association="Self.fkConversationConversation">
+            <End Role="conversation" EntitySet="conversation" />
+            <End Role="conversation1" EntitySet="conversation" />
+          </AssociationSet>
+          <AssociationSet Name="fkConversationUtilisateur1" Association="Self.fkConversationUtilisateur1">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="conversation" EntitySet="conversation" />
+          </AssociationSet>
+          <AssociationSet Name="fkConversationUtilisateur2" Association="Self.fkConversationUtilisateur2">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="conversation" EntitySet="conversation" />
+          </AssociationSet>
+          <AssociationSet Name="fkEvaluationTrajet" Association="Self.fkEvaluationTrajet">
+            <End Role="trajet" EntitySet="trajet" />
+            <End Role="evaluation" EntitySet="evaluation" />
+          </AssociationSet>
+          <AssociationSet Name="fkEvaluationUtilisateur1" Association="Self.fkEvaluationUtilisateur1">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="evaluation" EntitySet="evaluation" />
+          </AssociationSet>
+          <AssociationSet Name="fkEvaluationUtilisateur2" Association="Self.fkEvaluationUtilisateur2">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="evaluation" EntitySet="evaluation" />
+          </AssociationSet>
+          <AssociationSet Name="fkModeleMarque" Association="Self.fkModeleMarque">
+            <End Role="marque" EntitySet="marque" />
+            <End Role="modele" EntitySet="modele" />
+          </AssociationSet>
+          <AssociationSet Name="fkReservationTrajet" Association="Self.fkReservationTrajet">
+            <End Role="trajet" EntitySet="trajet" />
+            <End Role="reservation" EntitySet="reservation" />
+          </AssociationSet>
+          <AssociationSet Name="fkReservationUtilisateur" Association="Self.fkReservationUtilisateur">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="reservation" EntitySet="reservation" />
+          </AssociationSet>
+          <AssociationSet Name="fkTrajetVilleArivee" Association="Self.fkTrajetVilleArivee">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="trajet" EntitySet="trajet" />
+          </AssociationSet>
+          <AssociationSet Name="fkTrajetVilleDepart" Association="Self.fkTrajetVilleDepart">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="trajet" EntitySet="trajet" />
+          </AssociationSet>
+          <AssociationSet Name="fkTrajetVoiture" Association="Self.fkTrajetVoiture">
+            <End Role="voiture" EntitySet="voiture" />
+            <End Role="trajet" EntitySet="trajet" />
+          </AssociationSet>
+          <AssociationSet Name="fkVillePays" Association="Self.fkVillePays">
+            <End Role="pays" EntitySet="pays" />
+            <End Role="ville" EntitySet="ville" />
+          </AssociationSet>
+          <AssociationSet Name="fkVoitureModele" Association="Self.fkVoitureModele">
+            <End Role="modele" EntitySet="modele" />
+            <End Role="voiture" EntitySet="voiture" />
+          </AssociationSet>
+          <AssociationSet Name="fkVoitureUtilisateur" Association="Self.fkVoitureUtilisateur">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="voiture" EntitySet="voiture" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="covoiturageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="conversation">
+          <Key>
+            <PropertyRef Name="idConversation" />
+          </Key>
+          <Property Name="idConversation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUtilisateur1" Type="Int32" />
+          <Property Name="idUtilisateur2" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idConversationM" Type="Int32" />
+          <NavigationProperty Name="conversation1" Relationship="Self.fkConversationConversation" FromRole="conversation" ToRole="conversation1" />
+          <NavigationProperty Name="conversation2" Relationship="Self.fkConversationConversation" FromRole="conversation1" ToRole="conversation" />
+          <NavigationProperty Name="utilisateur" Relationship="Self.fkConversationUtilisateur1" FromRole="conversation" ToRole="utilisateur" />
+          <NavigationProperty Name="utilisateur1" Relationship="Self.fkConversationUtilisateur2" FromRole="conversation" ToRole="utilisateur" />
+        </EntityType>
+        <EntityType Name="evaluation">
+          <Key>
+            <PropertyRef Name="idEvaluation" />
+          </Key>
+          <Property Name="idEvaluation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUtilisateur1" Type="Int32" />
+          <Property Name="idUtilisateur2" Type="Int32" />
+          <Property Name="idTrajet" Type="Int32" />
+          <Property Name="rating" Type="Int32" />
+          <Property Name="plainte" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dateEvaluation" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="trajet" Relationship="Self.fkEvaluationTrajet" FromRole="evaluation" ToRole="trajet" />
+          <NavigationProperty Name="utilisateur" Relationship="Self.fkEvaluationUtilisateur1" FromRole="evaluation" ToRole="utilisateur" />
+          <NavigationProperty Name="utilisateur1" Relationship="Self.fkEvaluationUtilisateur2" FromRole="evaluation" ToRole="utilisateur" />
+        </EntityType>
+        <EntityType Name="marque">
+          <Key>
+            <PropertyRef Name="idmarque" />
+          </Key>
+          <Property Name="idmarque" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nommarque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="modeles" Relationship="Self.fkModeleMarque" FromRole="marque" ToRole="modele" />
+        </EntityType>
+        <EntityType Name="modele">
+          <Key>
+            <PropertyRef Name="idmodele" />
+          </Key>
+          <Property Name="idmodele" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomModele" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idmarque" Type="Int32" />
+          <NavigationProperty Name="marque" Relationship="Self.fkModeleMarque" FromRole="modele" ToRole="marque" />
+          <NavigationProperty Name="voitures" Relationship="Self.fkVoitureModele" FromRole="modele" ToRole="voiture" />
+        </EntityType>
+        <EntityType Name="pay">
+          <Key>
+            <PropertyRef Name="idpays" />
+          </Key>
+          <Property Name="idpays" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nompays" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="villes" Relationship="Self.fkVillePays" FromRole="pays" ToRole="ville" />
+        </EntityType>
+        <EntityType Name="reservation">
+          <Key>
+            <PropertyRef Name="idReservation" />
+          </Key>
+          <Property Name="idReservation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateReservation" Type="DateTime" Precision="3" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nbplaces" Type="Int32" />
+          <Property Name="valide" Type="Boolean" />
+          <Property Name="idTrajet" Type="Int32" />
+          <Property Name="idUtilisateur" Type="Int32" />
+          <NavigationProperty Name="trajet" Relationship="Self.fkReservationTrajet" FromRole="reservation" ToRole="trajet" />
+          <NavigationProperty Name="utilisateur" Relationship="Self.fkReservationUtilisateur" FromRole="reservation" ToRole="utilisateur" />
+        </EntityType>
+        <EntityType Name="trajet">
+          <Key>
+            <PropertyRef Name="idtrajet" />
+          </Key>
+          <Property Name="idtrajet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datecreation" Type="DateTime" Precision="0" />
+          <Property Name="datelimiteinscription" Type="DateTime" Precision="0" />
+          <Property Name="idVilleDepart" Type="Int32" />
+          <Property Name="idVilleArrivee" Type="Int32" />
+          <Property Name="pointDepart" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="pointArrivee" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="datedepart" Type="DateTime" Precision="0" />
+          <Property Name="heuredepart" Type="Time" Precision="7" />
+          <Property Name="heurearrivee" Type="Time" Precision="7" />
+          <Property Name="nbplaces" Type="Int32" />
+          <Property Name="prix" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Autoroute" Type="Boolean" />
+          <Property Name="fumeur" Type="Boolean" />
+          <Property Name="musique" Type="Boolean" />
+          <Property Name="annimaux" Type="Boolean" />
+          <Property Name="complet" Type="Boolean" />
+          <Property Name="immatriculation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="evaluations" Relationship="Self.fkEvaluationTrajet" FromRole="trajet" ToRole="evaluation" />
+          <NavigationProperty Name="reservations" Relationship="Self.fkReservationTrajet" FromRole="trajet" ToRole="reservation" />
+          <NavigationProperty Name="ville" Relationship="Self.fkTrajetVilleArivee" FromRole="trajet" ToRole="ville" />
+          <NavigationProperty Name="ville1" Relationship="Self.fkTrajetVilleDepart" FromRole="trajet" ToRole="ville" />
+          <NavigationProperty Name="voiture" Relationship="Self.fkTrajetVoiture" FromRole="trajet" ToRole="voiture" />
+        </EntityType>
+        <EntityType Name="utilisateur">
+          <Key>
+            <PropertyRef Name="idUtilisateur" />
+          </Key>
+          <Property Name="idUtilisateur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateN" Type="DateTime" Precision="0" />
+          <Property Name="sexe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="photoCIN1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="photoCIN2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="valide" Type="Boolean" />
+          <Property Name="hashCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="presentation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="conversations" Relationship="Self.fkConversationUtilisateur1" FromRole="utilisateur" ToRole="conversation" />
+          <NavigationProperty Name="conversations1" Relationship="Self.fkConversationUtilisateur2" FromRole="utilisateur" ToRole="conversation" />
+          <NavigationProperty Name="evaluations" Relationship="Self.fkEvaluationUtilisateur1" FromRole="utilisateur" ToRole="evaluation" />
+          <NavigationProperty Name="evaluations1" Relationship="Self.fkEvaluationUtilisateur2" FromRole="utilisateur" ToRole="evaluation" />
+          <NavigationProperty Name="reservations" Relationship="Self.fkReservationUtilisateur" FromRole="utilisateur" ToRole="reservation" />
+          <NavigationProperty Name="voitures" Relationship="Self.fkVoitureUtilisateur" FromRole="utilisateur" ToRole="voiture" />
+        </EntityType>
+        <EntityType Name="ville">
+          <Key>
+            <PropertyRef Name="idville" />
+          </Key>
+          <Property Name="idville" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomville" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idpays" Type="Int32" />
+          <NavigationProperty Name="pay" Relationship="Self.fkVillePays" FromRole="ville" ToRole="pays" />
+          <NavigationProperty Name="trajets" Relationship="Self.fkTrajetVilleArivee" FromRole="ville" ToRole="trajet" />
+          <NavigationProperty Name="trajets1" Relationship="Self.fkTrajetVilleDepart" FromRole="ville" ToRole="trajet" />
+        </EntityType>
+        <EntityType Name="voiture">
+          <Key>
+            <PropertyRef Name="immatriculation" />
+          </Key>
+          <Property Name="immatriculation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="couleur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="annee" Type="Int32" />
+          <Property Name="idModele" Type="Int32" />
+          <Property Name="idUtilisateur" Type="Int32" />
+          <NavigationProperty Name="modele" Relationship="Self.fkVoitureModele" FromRole="voiture" ToRole="modele" />
+          <NavigationProperty Name="trajets" Relationship="Self.fkTrajetVoiture" FromRole="voiture" ToRole="trajet" />
+          <NavigationProperty Name="utilisateur" Relationship="Self.fkVoitureUtilisateur" FromRole="voiture" ToRole="utilisateur" />
+        </EntityType>
+        <Association Name="fkConversationConversation">
+          <End Role="conversation" Type="Self.conversation" Multiplicity="0..1" />
+          <End Role="conversation1" Type="Self.conversation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="conversation">
+              <PropertyRef Name="idConversation" />
+            </Principal>
+            <Dependent Role="conversation1">
+              <PropertyRef Name="idConversationM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkConversationUtilisateur1">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="conversation" Type="Self.conversation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="conversation">
+              <PropertyRef Name="idUtilisateur1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkConversationUtilisateur2">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="conversation" Type="Self.conversation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="conversation">
+              <PropertyRef Name="idUtilisateur2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkEvaluationTrajet">
+          <End Role="trajet" Type="Self.trajet" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trajet">
+              <PropertyRef Name="idtrajet" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="idTrajet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkEvaluationUtilisateur1">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="idUtilisateur1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkEvaluationUtilisateur2">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="evaluation" Type="Self.evaluation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="evaluation">
+              <PropertyRef Name="idUtilisateur2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkModeleMarque">
+          <End Role="marque" Type="Self.marque" Multiplicity="0..1" />
+          <End Role="modele" Type="Self.modele" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marque">
+              <PropertyRef Name="idmarque" />
+            </Principal>
+            <Dependent Role="modele">
+              <PropertyRef Name="idmarque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkVoitureModele">
+          <End Role="modele" Type="Self.modele" Multiplicity="0..1" />
+          <End Role="voiture" Type="Self.voiture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modele">
+              <PropertyRef Name="idmodele" />
+            </Principal>
+            <Dependent Role="voiture">
+              <PropertyRef Name="idModele" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkVillePays">
+          <End Role="pays" Type="Self.pay" Multiplicity="0..1" />
+          <End Role="ville" Type="Self.ville" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pays">
+              <PropertyRef Name="idpays" />
+            </Principal>
+            <Dependent Role="ville">
+              <PropertyRef Name="idpays" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkReservationTrajet">
+          <End Role="trajet" Type="Self.trajet" Multiplicity="0..1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trajet">
+              <PropertyRef Name="idtrajet" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="idTrajet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkReservationUtilisateur">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="idUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTrajetVilleArivee">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="trajet" Type="Self.trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="idville" />
+            </Principal>
+            <Dependent Role="trajet">
+              <PropertyRef Name="idVilleArrivee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTrajetVilleDepart">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="trajet" Type="Self.trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="idville" />
+            </Principal>
+            <Dependent Role="trajet">
+              <PropertyRef Name="idVilleDepart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTrajetVoiture">
+          <End Role="voiture" Type="Self.voiture" Multiplicity="0..1" />
+          <End Role="trajet" Type="Self.trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="voiture">
+              <PropertyRef Name="immatriculation" />
+            </Principal>
+            <Dependent Role="trajet">
+              <PropertyRef Name="immatriculation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkVoitureUtilisateur">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="voiture" Type="Self.voiture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="idUtilisateur" />
+            </Principal>
+            <Dependent Role="voiture">
+              <PropertyRef Name="idUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="covoiturageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="conversations" EntityType="Self.conversation" />
+          <EntitySet Name="evaluations" EntityType="Self.evaluation" />
+          <EntitySet Name="marques" EntityType="Self.marque" />
+          <EntitySet Name="modeles" EntityType="Self.modele" />
+          <EntitySet Name="pays" EntityType="Self.pay" />
+          <EntitySet Name="reservations" EntityType="Self.reservation" />
+          <EntitySet Name="trajets" EntityType="Self.trajet" />
+          <EntitySet Name="utilisateurs" EntityType="Self.utilisateur" />
+          <EntitySet Name="villes" EntityType="Self.ville" />
+          <EntitySet Name="voitures" EntityType="Self.voiture" />
+          <AssociationSet Name="fkConversationConversation" Association="Self.fkConversationConversation">
+            <End Role="conversation" EntitySet="conversations" />
+            <End Role="conversation1" EntitySet="conversations" />
+          </AssociationSet>
+          <AssociationSet Name="fkConversationUtilisateur1" Association="Self.fkConversationUtilisateur1">
+            <End Role="utilisateur" EntitySet="utilisateurs" />
+            <End Role="conversation" EntitySet="conversations" />
+          </AssociationSet>
+          <AssociationSet Name="fkConversationUtilisateur2" Association="Self.fkConversationUtilisateur2">
+            <End Role="utilisateur" EntitySet="utilisateurs" />
+            <End Role="conversation" EntitySet="conversations" />
+          </AssociationSet>
+          <AssociationSet Name="fkEvaluationTrajet" Association="Self.fkEvaluationTrajet">
+            <End Role="trajet" EntitySet="trajets" />
+            <End Role="evaluation" EntitySet="evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fkEvaluationUtilisateur1" Association="Self.fkEvaluationUtilisateur1">
+            <End Role="utilisateur" EntitySet="utilisateurs" />
+            <End Role="evaluation" EntitySet="evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fkEvaluationUtilisateur2" Association="Self.fkEvaluationUtilisateur2">
+            <End Role="utilisateur" EntitySet="utilisateurs" />
+            <End Role="evaluation" EntitySet="evaluations" />
+          </AssociationSet>
+          <AssociationSet Name="fkModeleMarque" Association="Self.fkModeleMarque">
+            <End Role="marque" EntitySet="marques" />
+            <End Role="modele" EntitySet="modeles" />
+          </AssociationSet>
+          <AssociationSet Name="fkVoitureModele" Association="Self.fkVoitureModele">
+            <End Role="modele" EntitySet="modeles" />
+            <End Role="voiture" EntitySet="voitures" />
+          </AssociationSet>
+          <AssociationSet Name="fkVillePays" Association="Self.fkVillePays">
+            <End Role="pays" EntitySet="pays" />
+            <End Role="ville" EntitySet="villes" />
+          </AssociationSet>
+          <AssociationSet Name="fkReservationTrajet" Association="Self.fkReservationTrajet">
+            <End Role="trajet" EntitySet="trajets" />
+            <End Role="reservation" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="fkReservationUtilisateur" Association="Self.fkReservationUtilisateur">
+            <End Role="utilisateur" EntitySet="utilisateurs" />
+            <End Role="reservation" EntitySet="reservations" />
+          </AssociationSet>
+          <AssociationSet Name="fkTrajetVilleArivee" Association="Self.fkTrajetVilleArivee">
+            <End Role="ville" EntitySet="villes" />
+            <End Role="trajet" EntitySet="trajets" />
+          </AssociationSet>
+          <AssociationSet Name="fkTrajetVilleDepart" Association="Self.fkTrajetVilleDepart">
+            <End Role="ville" EntitySet="villes" />
+            <End Role="trajet" EntitySet="trajets" />
+          </AssociationSet>
+          <AssociationSet Name="fkTrajetVoiture" Association="Self.fkTrajetVoiture">
+            <End Role="voiture" EntitySet="voitures" />
+            <End Role="trajet" EntitySet="trajets" />
+          </AssociationSet>
+          <AssociationSet Name="fkVoitureUtilisateur" Association="Self.fkVoitureUtilisateur">
+            <End Role="utilisateur" EntitySet="utilisateurs" />
+            <End Role="voiture" EntitySet="voitures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="covoiturageModelStoreContainer" CdmEntityContainer="covoiturageEntities">
+          <EntitySetMapping Name="conversations">
+            <EntityTypeMapping TypeName="covoiturageModel.conversation">
+              <MappingFragment StoreEntitySet="conversation">
+                <ScalarProperty Name="idConversation" ColumnName="idConversation" />
+                <ScalarProperty Name="idUtilisateur1" ColumnName="idUtilisateur1" />
+                <ScalarProperty Name="idUtilisateur2" ColumnName="idUtilisateur2" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="idConversationM" ColumnName="idConversationM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="evaluations">
+            <EntityTypeMapping TypeName="covoiturageModel.evaluation">
+              <MappingFragment StoreEntitySet="evaluation">
+                <ScalarProperty Name="idEvaluation" ColumnName="idEvaluation" />
+                <ScalarProperty Name="idUtilisateur1" ColumnName="idUtilisateur1" />
+                <ScalarProperty Name="idUtilisateur2" ColumnName="idUtilisateur2" />
+                <ScalarProperty Name="idTrajet" ColumnName="idTrajet" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="plainte" ColumnName="plainte" />
+                <ScalarProperty Name="dateEvaluation" ColumnName="dateEvaluation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marques">
+            <EntityTypeMapping TypeName="covoiturageModel.marque">
+              <MappingFragment StoreEntitySet="marque">
+                <ScalarProperty Name="idmarque" ColumnName="idmarque" />
+                <ScalarProperty Name="nommarque" ColumnName="nommarque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="modeles">
+            <EntityTypeMapping TypeName="covoiturageModel.modele">
+              <MappingFragment StoreEntitySet="modele">
+                <ScalarProperty Name="idmodele" ColumnName="idmodele" />
+                <ScalarProperty Name="nomModele" ColumnName="nomModele" />
+                <ScalarProperty Name="idmarque" ColumnName="idmarque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pays">
+            <EntityTypeMapping TypeName="covoiturageModel.pay">
+              <MappingFragment StoreEntitySet="pays">
+                <ScalarProperty Name="idpays" ColumnName="idpays" />
+                <ScalarProperty Name="nompays" ColumnName="nompays" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reservations">
+            <EntityTypeMapping TypeName="covoiturageModel.reservation">
+              <MappingFragment StoreEntitySet="reservation">
+                <ScalarProperty Name="idReservation" ColumnName="idReservation" />
+                <ScalarProperty Name="dateReservation" ColumnName="dateReservation" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="nbplaces" ColumnName="nbplaces" />
+                <ScalarProperty Name="valide" ColumnName="valide" />
+                <ScalarProperty Name="idTrajet" ColumnName="idTrajet" />
+                <ScalarProperty Name="idUtilisateur" ColumnName="idUtilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trajets">
+            <EntityTypeMapping TypeName="covoiturageModel.trajet">
+              <MappingFragment StoreEntitySet="trajet">
+                <ScalarProperty Name="idtrajet" ColumnName="idtrajet" />
+                <ScalarProperty Name="datecreation" ColumnName="datecreation" />
+                <ScalarProperty Name="datelimiteinscription" ColumnName="datelimiteinscription" />
+                <ScalarProperty Name="idVilleDepart" ColumnName="idVilleDepart" />
+                <ScalarProperty Name="idVilleArrivee" ColumnName="idVilleArrivee" />
+                <ScalarProperty Name="pointDepart" ColumnName="pointDepart" />
+                <ScalarProperty Name="pointArrivee" ColumnName="pointArrivee" />
+                <ScalarProperty Name="datedepart" ColumnName="datedepart" />
+                <ScalarProperty Name="heuredepart" ColumnName="heuredepart" />
+                <ScalarProperty Name="heurearrivee" ColumnName="heurearrivee" />
+                <ScalarProperty Name="nbplaces" ColumnName="nbplaces" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="remarque" ColumnName="remarque" />
+                <ScalarProperty Name="Autoroute" ColumnName="Autoroute" />
+                <ScalarProperty Name="fumeur" ColumnName="fumeur" />
+                <ScalarProperty Name="musique" ColumnName="musique" />
+                <ScalarProperty Name="annimaux" ColumnName="annimaux" />
+                <ScalarProperty Name="complet" ColumnName="complet" />
+                <ScalarProperty Name="immatriculation" ColumnName="immatriculation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="utilisateurs">
+            <EntityTypeMapping TypeName="covoiturageModel.utilisateur">
+              <MappingFragment StoreEntitySet="utilisateur">
+                <ScalarProperty Name="idUtilisateur" ColumnName="idUtilisateur" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="dateN" ColumnName="dateN" />
+                <ScalarProperty Name="sexe" ColumnName="sexe" />
+                <ScalarProperty Name="mdp" ColumnName="mdp" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="photoCIN1" ColumnName="photoCIN1" />
+                <ScalarProperty Name="photoCIN2" ColumnName="photoCIN2" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="valide" ColumnName="valide" />
+                <ScalarProperty Name="hashCode" ColumnName="hashCode" />
+                <ScalarProperty Name="presentation" ColumnName="presentation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="villes">
+            <EntityTypeMapping TypeName="covoiturageModel.ville">
+              <MappingFragment StoreEntitySet="ville">
+                <ScalarProperty Name="idville" ColumnName="idville" />
+                <ScalarProperty Name="nomville" ColumnName="nomville" />
+                <ScalarProperty Name="idpays" ColumnName="idpays" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="voitures">
+            <EntityTypeMapping TypeName="covoiturageModel.voiture">
+              <MappingFragment StoreEntitySet="voiture">
+                <ScalarProperty Name="immatriculation" ColumnName="immatriculation" />
+                <ScalarProperty Name="couleur" ColumnName="couleur" />
+                <ScalarProperty Name="annee" ColumnName="annee" />
+                <ScalarProperty Name="idModele" ColumnName="idModele" />
+                <ScalarProperty Name="idUtilisateur" ColumnName="idUtilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

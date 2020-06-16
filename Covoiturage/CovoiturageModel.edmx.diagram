@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="89d29f04adc4468082ec3851283fca4a" Name="Diagram1">
+        <EntityTypeShape EntityType="covoiturageModel.conversation" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.evaluation" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.marque" Width="1.5" PointX="1.5" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.modele" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.pay" Width="1.5" PointX="0.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.reservation" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.trajet" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.utilisateur" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.ville" Width="1.5" PointX="3" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="covoiturageModel.voiture" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="covoiturageModel.fkConversationConversation" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkConversationUtilisateur1" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkConversationUtilisateur2" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkEvaluationTrajet" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkEvaluationUtilisateur1" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkEvaluationUtilisateur2" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkModeleMarque" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkVoitureModele" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkVillePays" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkReservationTrajet" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkReservationUtilisateur" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkTrajetVilleArivee" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkTrajetVilleDepart" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkTrajetVoiture" ManuallyRouted="false" />
+        <AssociationConnector Association="covoiturageModel.fkVoitureUtilisateur" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -121,12 +129,70 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\utilisateursController.cs" />
+    <Compile Include="conversation.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CovoiturageModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CovoiturageModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CovoiturageModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CovoiturageModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CovoiturageModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="evaluation.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="marque.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="modele.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountLogin.cs" />
+    <Compile Include="Models\AccountSignUp.cs" />
+    <Compile Include="pay.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="reservation.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="trajet.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="utilisateur.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ville.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="voiture.cs">
+      <DependentUpon>CovoiturageModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CovoiturageModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CovoiturageModel.Context.cs</LastGenOutput>
+      <DependentUpon>CovoiturageModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="CovoiturageModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CovoiturageModel.edmx</DependentUpon>
+      <LastGenOutput>CovoiturageModel.cs</LastGenOutput>
+    </Content>
     <Content Include="css\animate.min.css" />
     <Content Include="css\bootstrap-select.min.css" />
     <Content Include="css\custom-bs.css" />
@@ -334,15 +400,31 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <EntityDeploy Include="CovoiturageModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CovoiturageModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="CovoiturageModel.edmx.diagram">
+      <DependentUpon>CovoiturageModel.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\utilisateurs\Create.cshtml" />
+    <Content Include="Views\utilisateurs\Delete.cshtml" />
+    <Content Include="Views\utilisateurs\Details.cshtml" />
+    <Content Include="Views\utilisateurs\Edit.cshtml" />
+    <Content Include="Views\utilisateurs\Index.cshtml" />
+    <Content Include="Views\Home\LoginFailed.cshtml" />
+    <Content Include="Views\Home\MerciIscription.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
