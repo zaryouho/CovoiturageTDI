@@ -247,9 +247,9 @@ namespace Covoiturage.Controllers
 
             foreach (var item in db.utilisateurs)
             {
-                if (item.email == acc.Email && item.mdp == acc.Password)
+                string password = dencrypt(item.mdp, "myKey");
+                if (item.email == acc.Email && password == acc.Password)
                 {
-
                     found = true;
                     utilisateurlogin = item;
                     //var itemFound = item;
@@ -258,11 +258,11 @@ namespace Covoiturage.Controllers
             }
 
             if (found == false)
-                return View("LoginFailed");
+                return View("../Home/LoginFailed");
             else
             {
                 Session["passport"] = "oui";
-                return View("Index", utilisateurlogin);
+                return View("../Home/Index", utilisateurlogin);
             }
 
         }
