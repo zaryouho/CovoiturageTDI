@@ -46,6 +46,9 @@ namespace Covoiturage.Controllers
             return View(utilisateur);
         }
 
+        
+
+
         // GET: utilisateurs/Create
         public ActionResult Create()
         {
@@ -238,6 +241,11 @@ namespace Covoiturage.Controllers
             return View("../Home/MerciIscription");
         }
 
+        public ActionResult Profil(/*utilisateur utilisateur*/)
+        {
+            return View(/*db.utilisateurs.Find(utilisateur)*/);
+        }
+
 
         public utilisateur utilisateurlogin;
         public ActionResult VerifyUtilisateur(AccountLogin acc, FormCollection fc)
@@ -252,7 +260,7 @@ namespace Covoiturage.Controllers
                 {
                     found = true;
                     utilisateurlogin = item;
-                    //var itemFound = item;
+                    
                     break;
                 }
             }
@@ -261,8 +269,9 @@ namespace Covoiturage.Controllers
                 return View("../Home/LoginFailed");
             else
             {
+                var id = utilisateurlogin.idUtilisateur;
                 Session["passport"] = "oui";
-                return View("../Home/Index", utilisateurlogin);
+                return View("Profil"/*,db.utilisateurs.Find(id)*/);
             }
 
         }
