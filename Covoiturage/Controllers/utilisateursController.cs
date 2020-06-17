@@ -241,13 +241,18 @@ namespace Covoiturage.Controllers
             return View("../Home/MerciIscription");
         }
 
-        public ActionResult Profil(/*utilisateur utilisateur*/)
+        
+        public ActionResult Profil(Profilinfo utilisateur)
         {
-            return View(/*db.utilisateurs.Find(utilisateur)*/);
+            return View(utilisateur);
         }
 
+        
 
-        public utilisateur utilisateurlogin;
+        public utilisateur utilisateur;
+
+
+        
         public ActionResult VerifyUtilisateur(AccountLogin acc, FormCollection fc)
         {
             bool found = false;
@@ -259,7 +264,7 @@ namespace Covoiturage.Controllers
                 if (item.email == acc.Email && password == acc.Password)
                 {
                     found = true;
-                    utilisateurlogin = item;
+                    utilisateur = item;
                     
                     break;
                 }
@@ -269,9 +274,25 @@ namespace Covoiturage.Controllers
                 return View("../Home/LoginFailed");
             else
             {
-                var id = utilisateurlogin.idUtilisateur;
+                Profilinfo utilis = new Profilinfo();
+
+                utilis.nom = utilisateur.nom;
+                utilis.prenom = utilisateur.prenom;
+                utilis.dateN = utilisateur.dateN;
+                utilis.sexe = utilisateur.sexe;
+                utilis.mdp = utilisateur.mdp;
+                utilis.photo = utilisateur.photo;
+                utilis.photoCIN1 = utilisateur.photoCIN1;
+                utilis.photoCIN2 = utilisateur.photoCIN2;
+                utilis.telephone = utilisateur.telephone;
+                utilis.email = utilisateur.email;
+                utilis.valide = utilisateur.valide;
+                utilis.hashCode = utilisateur.hashCode;
+                utilis.presentation = utilisateur.presentation;
+                utilis.idUtilisateur = utilisateur.idUtilisateur;
+                
                 Session["passport"] = "oui";
-                return View("Profil"/*,db.utilisateurs.Find(id)*/);
+                return View("Profil",utilis);
             }
 
         }

@@ -1,169 +1,155 @@
-﻿
+﻿@model Covoiturage.Models.Profilinfo
+
 @{
     ViewBag.Title = "Profil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <body id="top">
 
-<body id="top">
-
-    <div id="overlayer"></div>
-    <div class="loader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-
-
-    <div class="site-wrap">
-
-        <div class="site-mobile-menu site-navbar-target">
-            <div class="site-mobile-menu-header">
-                <div class="site-mobile-menu-close mt-3">
-                    <span class="icon-close2 js-menu-toggle"></span>
-                </div>
+        <div id="overlayer"></div>
+        <div class="loader">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
-            <div class="site-mobile-menu-body"></div>
-        </div> <!-- .site-mobile-menu -->
-        <!-- HOME -->
-        <section class="section-hero overlay inner-page bg-image" style="background-image: url(../images/hero_1.jpg);" id="home-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <h1 class="text-white font-weight-bold">Mon Profil</h1>
-                        <div class="custom-breadcrumbs">
-                            <a href="~/Views/Home/Index.cshtml">Acceuil</a> <span class="mx-2 slash">/</span>
-                            @*<a href="#">Job</a> <span class="mx-2 slash">/</span>*@
-                            <span class="text-white"><strong>Mon Profil</strong></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section class="site-section">
-            <div class="container">
-
-                <div class="row align-items-center mb-5">
-                    <div class="col-lg-8 mb-4 mb-lg-0">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <h2>Profil</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="row">
-                            @*<div class="col-6">
-                                <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Preview</a>
-                            </div>*@
-                            <div class="col-6">
-                                <a href="#" class="btn btn-block btn-primary btn-group-lg">Sauvegarder mes informations</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-5">
-                    <div class="col-lg-12">
-                        <form class="p-4 p-md-5 border rounded" method="post">
-                            <h3 class="text-black mb-5 border-bottom pb-2">Informations de profil</h3>
-
-                            <div class="form-group">
-                                <label for="company-website-tw d-block">Upload de votre photo</label> <br>
-                                <label class="btn btn-primary btn-md btn-file">
-                                    Parcourir la photo<input type="image" hidden>
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" placeholder="you@yourdomain.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="Nom">Nom</label>
-                                <input type="text" class="form-control" id="Nom" placeholder="Votre Nom">
-                            </div>
-                            <div class="form-group">
-                                <label for="Prenom">Prénom</label>
-                                <input type="text" class="form-control" id="Prenom" placeholder="Votre Prénom">
-                            </div>
-                            @*<div class="form-group">
-            <label for="job-location">Location</label>
-            <input type="text" class="form-control" id="job-location" placeholder="e.g. New York">
         </div>
 
-        <div class="form-group">
-            <label for="job-region">Job Region</label>
-            <select class="selectpicker border rounded" id="job-region" data-style="btn-black" data-width="100%" data-live-search="true" title="Select Region">
-                <option>Anywhere</option>
-                <option>San Francisco</option>
-                <option>Palo Alto</option>
-                <option>New York</option>
-                <option>Manhattan</option>
-                <option>Ontario</option>
-                <option>Toronto</option>
-                <option>Kansas</option>
-                <option>Mountain View</option>
-            </select>
-        </div>*@
 
-                            <div class="form-group">
-                                <label for="Sexe">Sexe</label>
-                                <select class="selectpicker border rounded" id="Sexe" data-style="btn-black" data-width="100%" data-live-search="true" title="Sexe">
-                                    <option>Féminin</option>
-                                    <option>Masculin</option>
-                                </select>
+        <div class="site-wrap">
+
+            <div class="site-mobile-menu site-navbar-target">
+                <div class="site-mobile-menu-header">
+                    <div class="site-mobile-menu-close mt-3">
+                        <span class="icon-close2 js-menu-toggle"></span>
+                    </div>
+                </div>
+                <div class="site-mobile-menu-body"></div>
+            </div> <!-- .site-mobile-menu -->
+            <!-- HOME -->
+            <section class="section-hero overlay inner-page bg-image" style="background-image: url(../images/hero_1.jpg);" id="home-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h1 class="text-white font-weight-bold">Mon Profil</h1>
+                            <div class="custom-breadcrumbs">
+                                <a href="~/Views/Home/Index.cshtml">Acceuil</a> <span class="mx-2 slash">/</span>
+                                @*<a href="#">Job</a> <span class="mx-2 slash">/</span>*@
+                                <span class="text-white"><strong>Mon Profil</strong></span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                            <div class="form-group">
-                                <label for="Date">Date de naissance</label>
-                                <input type="date" class="form-control" id="Date" placeholder="Votre Date de naissance">
-                            </div>
 
-                            <div class="form-group">
-                                <label for="Telephone">Télephone</label>
-                                <input type="tel" class="form-control" id="Telephone" placeholder="Votre numéro de télephone">
-                            </div>
+            <section class="site-section">
+                <div class="container">
 
-                            <div class="form-group">
-                                <label for="Presentation">Votre Presentation</label>
-                                <div class="editor" id="editor-1">
-                                    <p>Ecrire une description</p>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h2>Profil</h2>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="company-website-tw d-block">Upload Photos de la carte d'identité nationale</label> <br>
-                                <label class="btn btn-primary btn-md btn-file">
-                                    Parcourir le recto<input type="image" hidden>
-                                </label>
-                                <label class="btn btn-primary btn-md btn-file">
-                                    Parcourir le verso<input type="image" hidden>
-                                </label>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                @*<div class="col-6">
+                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Preview</a>
+                                </div>*@
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-block btn-primary btn-group-lg">Sauvegarder mes informations</a>
+                                </div>
                             </div>
-
-                        </form>
+                        </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-lg-12">
+                            <form class="p-4 p-md-5 border rounded" method="post">
+                                <h3 class="text-black mb-5 border-bottom pb-2">Informations de profil</h3>
+
+                                <div class="form-group">
+                                    <label for="company-website-tw d-block">Upload de votre photo</label> <br>
+                                    <label class="btn btn-primary btn-md btn-file">
+                                        Parcourir la photo<input type="image" hidden>
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="you@yourdomain.com" value="@Html.ValueFor(model => model.email)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Nom">Nom</label>
+                                    <input type="text" class="form-control" id="Nom" placeholder="Votre Nom" value="@Html.ValueFor(model => model.nom)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Prenom">Prénom</label>
+                                    <input type="text" class="form-control" id="Prenom" placeholder="Votre Prénom" value="@Html.ValueFor(model => model.prenom)">
+                                </div>
 
 
-                </div>
-                <div class="row align-items-center mb-5">
+                                <div class="form-group">
+                                    <label for="Sexe">Sexe</label>
+                                    <select class="selectpicker border rounded" id="Sexe" data-style="btn-black" data-width="100%" data-live-search="true" title="Sexe" value="@Html.ValueFor(model => model.sexe)">
+                                        <option>Féminin</option>
+                                        <option>Masculin</option>
+                                    </select>
+                                </div>
 
-                    <div class="col-lg-4 ml-auto">
-                        <div class="row">
-                            
-                            <div class="col-6">
-                                <a href="#" class="btn btn-block btn-primary btn-group-lg">Sauvegarder mes informations</a>
+                                <div class="form-group">
+                                    <label for="Date">Date de naissance</label>
+                                    <input type="date" class="form-control" id="Date" placeholder="Votre Date de naissance" value="@Html.ValueFor(model => model.dateN)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Telephone">Télephone</label>
+                                    <input type="tel" class="form-control" id="Telephone" placeholder="Votre numéro de télephone" value="@Html.ValueFor(model => model.telephone)">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Presentation">Votre Presentation</label>
+                                    <div class="editor" id="editor-1">
+                                        <p> @Html.ValueFor(model => model.telephone)</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="company-website-tw d-block">Upload Photos de la carte d'identité nationale</label> <br>
+                                    <label class="btn btn-primary btn-md btn-file">
+                                        Parcourir le recto<input type="image" hidden>
+                                    </label>
+                                    <label class="btn btn-primary btn-md btn-file">
+                                        Parcourir le verso<input type="image" hidden>
+                                    </label>
+                                </div>
+
+                            </form>
+                        </div>
+
+
+                    </div>
+                    <div class="row align-items-center mb-5">
+
+                        <div class="col-lg-4 ml-auto">
+                            <div class="row">
+
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-block btn-primary btn-group-lg">Sauvegarder mes informations</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
 
-    </div>
+        </div>
 
+       @*// @Html.Action("Edit", new { id = Model.idUtilisateur })*@
 
-
-</body>
+    </body>
+}
