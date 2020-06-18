@@ -94,13 +94,71 @@ namespace Covoiturage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "idUtilisateur,nom,prenom,dateN,sexe,mdp,photo,photoCIN1,photoCIN2,telephone,email,valide,hashCode,presentation")] utilisateur utilisateur)
         {
+            
+
             if (ModelState.IsValid)
             {
                 db.Entry(utilisateur).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return View(utilisateur);
+                  return RedirectToAction("Index");
             }
             return View(utilisateur);
+        }
+
+
+        public void ProfilUpdate()
+        {
+            // Get values from the view
+            string nom = Request.Form["Nom"];
+            string prenom = Request.Form["Prenom"];
+            string email = Request.Form["Email"];
+            string sexe = Request.Form["Sexe"];
+            string photo = Request.Form["Photo"];
+            string telephone = Request.Form["Telephone"];
+            string photorecto = Request.Form["Photorecto"];
+            string photoverso = Request.Form["Photoverso"];
+            DateTime date = Convert.ToDateTime(Request.Form["Date"]);
+            string presentation = Request.Form["Presentation"];
+            int id = Convert.ToInt32(Request.Form["Id"]);
+
+
+            // updating values of user
+            db.utilisateurs.Find(id).nom = nom;
+            db.utilisateurs.Find(id).prenom = prenom;
+            db.utilisateurs.Find(id).email = email;
+            db.utilisateurs.Find(id).sexe = sexe;
+            db.utilisateurs.Find(id).photo = photo;
+            db.utilisateurs.Find(id).telephone = telephone;
+            db.utilisateurs.Find(id).photoCIN1 = photorecto;
+            db.utilisateurs.Find(id).photoCIN2 = photoverso;
+            db.utilisateurs.Find(id).presentation = presentation;
+            db.utilisateurs.Find(id).dateN = date;
+
+
+            if (ModelState.IsValid)
+            {
+                // updating in database
+                db.Entry(db.utilisateurs.Find(id)).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+        
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public void EditProfile([Bind(Include = "idUtilisateur,nom,prenom,dateN,sexe,mdp,photo,photoCIN1,photoCIN2,telephone,email,valide,hashCode,presentation")] utilisateur utilisateur)
+        {
+            var id = Request.Form["idUtili"];
+            utilisateur = db.utilisateurs.Find(id);
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(utilisateur).State = EntityState.Modified;
+                db.SaveChanges();                
+            }
+           
         }
 
         // GET: utilisateurs/Delete/5
@@ -241,7 +299,7 @@ namespace Covoiturage.Controllers
             return View("../Home/MerciIscription");
         }
 
-        
+        [ValidateAntiForgeryToken]
         public ActionResult Profil(Profilinfo utilisateur)
         {
             return View(utilisateur);

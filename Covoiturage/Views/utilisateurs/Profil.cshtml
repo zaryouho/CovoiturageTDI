@@ -58,10 +58,10 @@
                         <div class="col-lg-4">
                             <div class="row">
                                 @*<div class="col-6">
-                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Preview</a>
-                                </div>*@
+                                        <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Preview</a>
+                                    </div>*@
                                 <div class="col-6">
-                                    <a href="#" class="btn btn-block btn-primary btn-group-lg">Sauvegarder mes informations</a>
+                                    <a onclick="Update(@Model.idUtilisateur)" @*href="@Url.Action("EditProfile", "utilisateurs",new { id = Model.idUtilisateur })"*@ class="btn btn-block btn-primary btn-group-lg">Sauvegarder mes informations</a>
                                 </div>
                             </div>
                         </div>
@@ -74,13 +74,13 @@
                                 <div class="form-group">
                                     <label for="company-website-tw d-block">Upload de votre photo</label> <br>
                                     <label class="btn btn-primary btn-md btn-file">
-                                        Parcourir la photo<input type="image" hidden>
+                                        Parcourir la photo<input type="file" id="Photo" accept="image/*" hidden>
                                     </label>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" placeholder="you@yourdomain.com" value="@Html.ValueFor(model => model.email)">
+                                    <input type="text" class="form-control" id="Email" placeholder="you@yourdomain.com" value="@Html.ValueFor(model => model.email)">
                                 </div>
                                 <div class="form-group">
                                     <label for="Nom">Nom</label>
@@ -113,17 +113,17 @@
                                 <div class="form-group">
                                     <label for="Presentation">Votre Presentation</label>
                                     <div class="editor" id="editor-1">
-                                        <p> @Html.ValueFor(model => model.telephone)</p>
+                                        <input id="Presentation" value="@Html.ValueFor(model => model.presentation)" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="company-website-tw d-block">Upload Photos de la carte d'identité nationale</label> <br>
                                     <label class="btn btn-primary btn-md btn-file">
-                                        Parcourir le recto<input type="image" hidden>
+                                        Parcourir le recto<input type="file" id="Photorecto" accept="image/*" hidden>
                                     </label>
                                     <label class="btn btn-primary btn-md btn-file">
-                                        Parcourir le verso<input type="image" hidden>
+                                        Parcourir le verso<input type="file" id="Photoverso" accept="image/*" hidden>
                                     </label>
                                 </div>
 
@@ -138,7 +138,7 @@
                             <div class="row">
 
                                 <div class="col-6">
-                                    <a href="#" class="btn btn-block btn-primary btn-group-lg">Sauvegarder mes informations</a>
+                                    <button type="submit" href="#" class="btn btn-block btn-primary btn-group-lg">Sauvegarder mes informations</button>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,46 @@
 
         </div>
 
-       @*// @Html.Action("Edit", new { id = Model.idUtilisateur })*@
+        @*// @Html.Action("Edit", new { id = Model.idUtilisateur })*@
 
     </body>
 }
+
+
+    <script>
+        function Update(id) {
+            var nom = $('#Nom').val();
+            var prenom = $('#Prenom').val();
+            var email = $('#Email').val();
+            var dateN = $('#Date').val();
+            var photo = $('#Photo').val();
+            var telephone = $('#Telephone').val();
+            var photorecto = $('#Photorecto').val();
+            var photoverso = $('#Photoverso').val();
+            var sexe = $('#Sexe').attr('title');
+            var presentation = $('#Nom').val();
+            
+            $.ajax({
+                url: "/utilisateurs/ProfilUpdate",
+                method: "post",
+                async: false,
+                data: {
+                    Nom: nom,
+                    Id: id,
+                    Prenom: prenom,
+                    Email: email,
+                    Date: dateN,
+                    Photo: photo,
+                    Photorecto: photorecto,
+                    Photoverso: photoverso,
+                    Telephone: telephone,
+                    Sexe: sexe,
+                    Presentation:presentation
+                },
+                success: function (data) {
+                    
+                }
+            });
+
+        }
+    </script>
