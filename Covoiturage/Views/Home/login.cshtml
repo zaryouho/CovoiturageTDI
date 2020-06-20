@@ -4,7 +4,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-   
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#userEmail').keyup(function () {
+                var userEmail = $(this).val();
+                if (userEmail.indexOf('.') >= 0) {
+                    $.ajax({
+                        url: 'RegistraionWebService.asmx/checkUserNameAvailability',
+                        method: 'post',
+                        data: { userEmail: userEmail },
+                        dataType: 'json',
+                        success: function (data) {
+
+                        },
+                        error: function (err) {
+                            alert('error')
+                        }
+                    })
+                }
+            });
+        });
+    </script>
     <body id="top">
 
         <div id="overlayer"></div>
@@ -31,10 +51,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-7">
-                            <h1 class="text-white font-weight-bold">Sign Up/Login</h1>
+                            <h1 class="text-white font-weight-bold">S'inscrire/Connection</h1>
                             <div class="custom-breadcrumbs">
-                                <a href="#">Home</a> <span class="mx-2 slash">/</span>
-                                <span class="text-white"><strong>Log In</strong></span>
+                                <a href="#">Acceuil</a> <span class="mx-2 slash">/</span>
+                                <span class="text-white"><strong>Connection</strong></span>
                             </div>
                         </div>
                     </div>
@@ -44,6 +64,7 @@
             <section class="site-section">
                 <div class="container">
                     <div class="row">
+@*------------------------ Sign up form*@
                         <div class="col-lg-6 mb-5">
                             <h2 class="mb-4">Inscription</h2>
                             <form action="#" class="p-4 border rounded">
@@ -51,9 +72,10 @@
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
                                         <label class="text-black" for="fname">Email</label>
-                                        <input type="text" id="fname" class="form-control" placeholder="Email address">
+                                        <input type="text" id="userEmail" class="form-control" placeholder="Email address">
                                     </div>
                                 </div>
+
                                 @*adding the user name text box*@
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
@@ -61,6 +83,7 @@
                                         <input type="text" id="fname" class="form-control" placeholder="Nom">
                                     </div>
                                 </div>
+
                                 @*end user name text box*@
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
@@ -83,6 +106,8 @@
 
                             </form>
                         </div>
+@*------------------------Signup ends here*@
+@*--------------------------Sign in*@ 
                         <div class="col-lg-6">
                             <h2 class="mb-4">Connection</h2>
                             <form action="#" class="p-4 border rounded">
@@ -112,18 +137,13 @@
                                         <input type="submit" value="Connection" class="btn px-4 btn-primary text-white">
                                     </div>
                                 </div>
-
+@*--------------------------------Sign in ends here*@
                             </form>
                         </div>
                     </div>
                 </div>
             </section>
-
-
-
         </div>
-
-
     </body>
 
 
