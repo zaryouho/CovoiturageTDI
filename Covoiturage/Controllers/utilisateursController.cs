@@ -16,9 +16,9 @@ using System.Text;
 
 namespace Covoiturage.Controllers
 {
-    public class utilisateursController : Controller
+    public class UtilisateursController : Controller
     {
-        private covoiturageEntities db = new covoiturageEntities();
+        private readonly covoiturageEntities db = new covoiturageEntities();
 
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
@@ -196,7 +196,7 @@ namespace Covoiturage.Controllers
             base.Dispose(disposing);
         }
 
-        static public string encrypte(string pass, string key)
+        static public string Encrypte(string pass, string key)
         {
             byte[] data = System.Text.UTF8Encoding.UTF8.GetBytes(pass);
             using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
@@ -215,7 +215,7 @@ namespace Covoiturage.Controllers
 
 
 
-        static public string dencrypt(string stringDecrpter, string key)
+        static public string Dencrypt(string stringDecrpter, string key)
         {
             string str = "";
             byte[] data = Convert.FromBase64String(stringDecrpter);
@@ -233,7 +233,7 @@ namespace Covoiturage.Controllers
             return str;
         }
 
-        void connectionString()
+        void ConnectionString()
         {
             con.ConnectionString = "data source =DESKTOP-Q3F1QCV; initial catalog = covoiturage; integrated security = true;";
         }
@@ -260,12 +260,12 @@ namespace Covoiturage.Controllers
             }
 
 
-            connectionString();
+            ConnectionString();
             con.Open();
             com.Connection = con;
 
             string hash = new Random().Next().ToString();
-            string password = encrypte(acc.Password, "myKey");
+            string password = Encrypte(acc.Password, "myKey");
             com.CommandText = "insert into utilisateur (email,nom,prenom,mdp,valide) values ('" + acc.Email + "','" + acc.Nom.Replace("'", "''") + "','" + acc.Prenom.Replace("'", "''") + "','"  + password + "',0)";
             com.ExecuteNonQuery();
 
@@ -318,7 +318,7 @@ namespace Covoiturage.Controllers
 
             foreach (var item in db.utilisateurs)
             {
-                string password = dencrypt(item.mdp, "myKey");
+                string password = Dencrypt(item.mdp, "myKey");
                 if (item.email == acc.Email && password == acc.Password)
                 {
                     found = true;

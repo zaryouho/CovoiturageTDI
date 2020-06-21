@@ -49,33 +49,33 @@
 
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
-                                        <label class="text-black" for="fname">Email</label>
-                                        <input type="text" id="fname" name="Email" class="form-control" placeholder="Adresse E-mail">
+                                        <label class="text-black" for="Email">Email</label>
+                                        <input type="text" id="userEmail" name="Email" class="form-control" placeholder="Adresse E-mail">
                                     </div>
                                 </div>
                                 @*adding the user name text box*@
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
-                                        <label class="text-black" for="fname">Nom</label>
-                                        <input type="text" id="fname" name="Nom" class="form-control" placeholder="Nom">
+                                        <label class="text-black" for="Nom">Nom</label>
+                                        <input type="text" id="userName" name="Nom" class="form-control" placeholder="Nom">
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
-                                        <label class="text-black" for="fname">Prénom</label>
-                                        <input type="text" id="fname" name="Prenom" class="form-control" placeholder="Prénom">
+                                        <label class="text-black" for="Prenom">Prénom</label>
+                                        <input type="text" id="userFname" name="Prenom" class="form-control" placeholder="Prénom">
                                     </div>
                                 </div>
                                 @*end user name text box*@
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
-                                        <label class="text-black" for="fname">Password</label>
+                                        <label class="text-black" for="password1">Password</label>
                                         <input type="password" name="Password" id="password1" class="form-control" placeholder="Password">
                                     </div>
                                 </div>
                                 <div class="row form-group mb-4">
                                     <div class="col-md-12 mb-3 mb-md-0">
-                                        <label class="text-black" for="fname">Re-Type Password</label>
+                                        <label class="text-black" for="password2">Re-Type Password</label>
                                         <input type="password" name="Password" id="password2" class="form-control" placeholder="Re-type Password">
                                     </div>
                                 </div>
@@ -117,8 +117,7 @@
                                         <input type="submit" value="Connexion" class="btn px-4 btn-primary text-white">
                                     </div>
                                 </div>
-
-                            </form>
+                               </form>
                         </div>
                     </div>
                 </div>
@@ -126,8 +125,21 @@
             
 
         </div>
+        <script src="~/js/bootstrap-validate.js"></script>
+        <script src="~/js/bootstrap-validate.js">
+            //costum validation
+            bootstrapValidate('#userEmail', 'email:Enter a valide email adress')
+            bootstrapValidate('#userName', 'min:3:username must be at least 3 characters')
+            bootstrapValidate('#userName', 'alpha:you can only type alphanumeric values')
+            bootstrapValidate('#userFname', 'min:3:username must be at least 3 characters')
+            bootstrapValidate('#userFname', 'alpha:you can only type alphanumeric values')
+            bootstrapValidate('#password1', 'min:7:password must be atleast 7 characters long')
 
-        <script>
+
+            bootstrapValidate('#email', 'email:Enter a valid email address');
+            //costum validation
+
+            //javaScript
             window.onload = function () {
                 document.getElementById("password1").onchange = validatePassword;
                 document.getElementById("password2").onchange = validatePassword;
@@ -142,6 +154,14 @@
                     document.getElementById("password2").setCustomValidity('');
                 //empty string means no validation error
             }
+            //javaScript
+
+            //jQuery/Ajax
+             
+             
+
+            //jQuery/Ajax
+
         </script>
 
     </body>
