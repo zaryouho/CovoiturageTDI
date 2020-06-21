@@ -148,6 +148,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CovoiturageModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="emailAvailabilityWebService.asmx.cs">
+      <DependentUpon>emailAvailabilityWebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="evaluation.cs">
       <DependentUpon>CovoiturageModel.tt</DependentUpon>
     </Compile>
@@ -173,6 +177,7 @@
     <Compile Include="trajet.cs">
       <DependentUpon>CovoiturageModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="User.cs" />
     <Compile Include="utilisateur.cs">
       <DependentUpon>CovoiturageModel.tt</DependentUpon>
     </Compile>
@@ -201,6 +206,7 @@
     <Content Include="css\owl.carousel.min.css" />
     <Content Include="css\quill.snow.css" />
     <Content Include="css\style.css" />
+    <Content Include="emailAvailabilityWebService.asmx" />
     <Content Include="fonts\icomoon\demo-files\demo.css" />
     <Content Include="fonts\icomoon\demo-files\demo.js" />
     <Content Include="fonts\icomoon\demo.html" />
@@ -413,6 +419,9 @@
     </EntityDeploy>
     <Content Include="CovoiturageModel.edmx.diagram">
       <DependentUpon>CovoiturageModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\Home\Login.cshtml" />
