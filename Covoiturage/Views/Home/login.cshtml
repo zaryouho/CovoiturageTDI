@@ -49,8 +49,8 @@
 
                                 <div class="row form-group">
                                     <div class="col-md-12 mb-3 mb-md-0">
-                                        <label class="text-black" for="fname">Email</label>
-                                        <input type="text" id="fname" name="Email" class="form-control" placeholder="Adresse E-mail">
+                                        <label class="text-black" for="userEmail">Email</label>
+                                        <input type="text" id="userEmail" name="Email" class="form-control" placeholder="Adresse E-mail">
                                     </div>
                                 </div>
                                 @*adding the user name text box*@
@@ -127,7 +127,26 @@
 
         </div>
 
-        <script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#userEmail').keypress(function () {
+                    var email = $(this).val();
+                    if (email.length > 3) {
+                        $.ajax({
+                            url: 'emailAvailabilityWebService.asmx/checkUserNameAvailability',
+                            method: 'post',
+                            data: { userEmail = eamil },
+                            dataType: 'json',
+                            success: function (data) {
+                                document.getElementById("userEmail").setCustomValidity("This email already exists");
+                            },
+                            error: function (er) {
+                                alert('error submitting the data');
+                            },
+                        });
+                    }
+                });
+            });
             window.onload = function () {
                 document.getElementById("password1").onchange = validatePassword;
                 document.getElementById("password2").onchange = validatePassword;

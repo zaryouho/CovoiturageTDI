@@ -272,8 +272,10 @@ namespace Covoiturage.Controllers
                        
 
             SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
-            var mail = new MailMessage();
-            mail.From = new MailAddress("covoiturage-maroc@outlook.com");
+            var mail = new MailMessage
+            {
+                From = new MailAddress("covoiturage-maroc@outlook.com")
+            };
             mail.To.Add(acc.Email);
 
             mail.Subject = "Inscription sur le site de covoiturage en ligne";
@@ -290,7 +292,7 @@ namespace Covoiturage.Controllers
                 SmtpServer.Send(mail);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Response.Write("Erreur d'envoi de message");
             }
@@ -332,23 +334,24 @@ namespace Covoiturage.Controllers
                 return View("../Home/LoginFailed");
             else
             {
-                Profilinfo utilis = new Profilinfo();
+                Profilinfo utilis = new Profilinfo
+                {
+                    nom = utilisateur.nom,
+                    prenom = utilisateur.prenom,
+                    dateN = utilisateur.dateN,
+                    sexe = utilisateur.sexe,
+                    mdp = utilisateur.mdp,
+                    photo = utilisateur.photo,
+                    photoCIN1 = utilisateur.photoCIN1,
+                    photoCIN2 = utilisateur.photoCIN2,
+                    telephone = utilisateur.telephone,
+                    email = utilisateur.email,
+                    valide = utilisateur.valide,
+                    hashCode = utilisateur.hashCode,
+                    presentation = utilisateur.presentation,
+                    idUtilisateur = utilisateur.idUtilisateur
+                };
 
-                utilis.nom = utilisateur.nom;
-                utilis.prenom = utilisateur.prenom;
-                utilis.dateN = utilisateur.dateN;
-                utilis.sexe = utilisateur.sexe;
-                utilis.mdp = utilisateur.mdp;
-                utilis.photo = utilisateur.photo;
-                utilis.photoCIN1 = utilisateur.photoCIN1;
-                utilis.photoCIN2 = utilisateur.photoCIN2;
-                utilis.telephone = utilisateur.telephone;
-                utilis.email = utilisateur.email;
-                utilis.valide = utilisateur.valide;
-                utilis.hashCode = utilisateur.hashCode;
-                utilis.presentation = utilisateur.presentation;
-                utilis.idUtilisateur = utilisateur.idUtilisateur;
-                
                 Session["passport"] = "oui";
                 return View("Profil",utilis);
             }
