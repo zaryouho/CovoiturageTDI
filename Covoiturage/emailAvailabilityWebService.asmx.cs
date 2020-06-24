@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Services;
 using System.Data.SqlClient;
 using System.Web.Script.Serialization;
+using System.Configuration;
 
 namespace Covoiturage
 {
@@ -18,7 +19,7 @@ namespace Covoiturage
     [System.Web.Script.Services.ScriptService]
     public class EmailAvailabilityWebService : System.Web.Services.WebService
     {
-        private static readonly string connectionString = @"data source = DESKTOP-DJJ9DHM\SQLEXPRESS; intial catalog = covoiturage ; Integrated Security=true";
+        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["HamzaConnectionString"].ConnectionString;
         private static readonly string query = @"select count(id) from [dbo].[utilisateur] where email = @userEmail ";
         bool emailAvailable = false;
         [WebMethod]

@@ -12,18 +12,20 @@ using System.Data.SqlClient;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-
+using System.Configuration;
 
 namespace Covoiturage.Controllers
 {
     public class utilisateursController : Controller
     {
         private covoiturageEntities db = new covoiturageEntities();
+        private static readonly string hash = new Random().Next().ToString();
+        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["RedaConnectionString"].ConnectionString;
 
-        SqlConnection con = new SqlConnection();
-        SqlCommand com = new SqlCommand();
-        SqlDataReader dr;
-        
+        //SqlConnection con = new SqlConnection();
+        //SqlCommand com = new SqlCommand();
+        //SqlDataReader dr;
+
 
         // GET: utilisateurs
         public ActionResult Index()
@@ -233,10 +235,10 @@ namespace Covoiturage.Controllers
             return str;
         }
 
-        void connectionString()
-        {
-            con.ConnectionString = "data source =DESKTOP-Q3F1QCV; initial catalog = covoiturage; integrated security = true;";
-        }
+        //void connectionString()
+        //{
+        //    con.ConnectionString = "data source =DESKTOP-Q3F1QCV; initial catalog = covoiturage; integrated security = true;";
+        //}
 
         public ActionResult AddUtilisateur(AccountSignUp acc, FormCollection fc)
         {
@@ -259,15 +261,50 @@ namespace Covoiturage.Controllers
                 //"hnaya khesna ntal3o msg beli deja kayen"
             }
 
+            using (SqlConnection connection = new SqlConnection())
+            {
+                connection.ConnectionString = connectionString;
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    string query = "insert into utilisateur (email,nom,prenom,mdp,valide) values (@email,@nom,@prenom,@password,0)";
+                    command.CommandText = query;
+                    string password = encrypte(acc.Password, "myKey");
+                    command.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@email",
+                        Value = acc.Email
+                    });
+                    command.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@name",
+                        Value = acc.Nom.Replace("'", "''")
+                    });
+                    command.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@prenom",
+                        Value = acc.Prenom.Replace("'", "''")
+                    });
+                    command.Parameters.Add(new SqlParameter()
+                    {
+                        ParameterName = "@password",
+                        Value = password
+                    });
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            //connectionString();
+            //con.Open();
+            //com.Connection = con;
 
-            connectionString();
-            con.Open();
-            com.Connection = con;
-
-            string hash = new Random().Next().ToString();
-            string password = encrypte(acc.Password, "myKey");
-            com.CommandText = "insert into utilisateur (email,nom,prenom,mdp,valide) values ('" + acc.Email + "','" + acc.Nom.Replace("'", "''") + "','" + acc.Prenom.Replace("'", "''") + "','"  + password + "',0)";
-            com.ExecuteNonQuery();
+            //com.CommandText = "insert into utilisateur (email,nom,prenom,mdp,valide) values ('" + acc.Email + "','" + acc.Nom.Replace("'", "''") + "','" + acc.Prenom.Replace("'", "''") + "','"  + password + "',0)";
+            //com.ExecuteNonQuery();
 
                        
 
@@ -355,8 +392,6 @@ namespace Covoiturage.Controllers
                 Session["passport"] = "oui";
                 return View("Profil",utilis);
             }
-
         }
-
     }
 }
