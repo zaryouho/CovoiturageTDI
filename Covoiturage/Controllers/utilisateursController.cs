@@ -306,33 +306,57 @@ namespace Covoiturage.Controllers
             //com.CommandText = "insert into utilisateur (email,nom,prenom,mdp,valide) values ('" + acc.Email + "','" + acc.Nom.Replace("'", "''") + "','" + acc.Prenom.Replace("'", "''") + "','"  + password + "',0)";
             //com.ExecuteNonQuery();
 
-                       
-
-            SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
-            var mail = new MailMessage
+            using (SmtpClient smtpClient = new SmtpClient("smtp.live.com"))
             {
-                From = new MailAddress("covoiturage-maroc@outlook.com")
-            };
-            mail.To.Add(acc.Email);
+                MailMessage mailMessage = new MailMessage
+                {
+                    From = new MailAddress("covoiturage-maroc@outlook.com")
+                };
+                mailMessage.To.Add(acc.Email);
+                mailMessage.Subject = "Inscription sur le site de covoiturage en ligne";
+                mailMessage.IsBodyHtml = true;
+                string htmlBody = "<h1>Inscription</h1> Merci pour votre inscription dans notre site cliquez ou copiez le lien suivant dans votre navigteur <a href='https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + "'>https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + " </a>votre inscription";
+                mailMessage.Body = htmlBody;
+                smtpClient.Port = 587; //64   587
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = new System.Net.NetworkCredential("covoiturage-maroc@outlook.com", "Covoituragemaroc");
+                smtpClient.EnableSsl = true;
+                try
+                {
+                    smtpClient.Send(mailMessage);
 
-            mail.Subject = "Inscription sur le site de covoiturage en ligne";
-            mail.IsBodyHtml = true;
-            string htmlBody;
-            htmlBody = "<h1>Inscription</h1> Merci pour votre inscription dans notre site cliquez ou copiez le lien suivant dans votre navigteur <a href='https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + "'>https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + " </a>votre inscription";
-            mail.Body = htmlBody;
-            SmtpServer.Port = 587; //64   587
-            SmtpServer.UseDefaultCredentials = false;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("covoiturage-maroc@outlook.com", "Covoituragemaroc"); 
-            SmtpServer.EnableSsl = true;
-            try
-            {
-                SmtpServer.Send(mail);
+                }
+                catch (Exception)
+                {
+                    Response.Write("Erreur d'envoi de message");
+                }
+            }           
 
-            }
-            catch (Exception)
-            {
-                Response.Write("Erreur d'envoi de message");
-            }
+            //SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
+            //var mail = new MailMessage
+            //{
+            //    From = new MailAddress("covoiturage-maroc@outlook.com")
+            //};
+            //mail.To.Add(acc.Email);
+
+            //mail.Subject = "Inscription sur le site de covoiturage en ligne";
+            //mail.IsBodyHtml = true;
+            ////string htmlBody;
+            ////htmlBody = "<h1>Inscription</h1> Merci pour votre inscription dans notre site cliquez ou copiez le lien suivant dans votre navigteur <a href='https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + "'>https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + " </a>votre inscription";
+            //mail.Body = htmlBody;
+            //SmtpServer.Port = 587; //64   587
+            //SmtpServer.UseDefaultCredentials = false;
+            //SmtpServer.Credentials = new System.Net.NetworkCredential("covoiturage-maroc@outlook.com", "Covoituragemaroc"); 
+            //SmtpServer.EnableSsl = true;
+            //try
+            //{
+            //    SmtpServer.Send(mail);
+
+            //}
+            //catch (Exception)
+            //{
+            //    Response.Write("Erreur d'envoi de message");
+            //}
 
 
             return View("../Home/MerciIscription");
