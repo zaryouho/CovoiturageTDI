@@ -259,6 +259,7 @@
     <Content Include="images\sq_img_7.jpg" />
     <Content Include="images\sq_img_8.jpg" />
     <Content Include="images\sq_img_9.jpg" />
+    <Content Include="images\yallaMayaLogo.png" />
     <Content Include="js\bootstrap-select.min.js" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\custom.js" />
