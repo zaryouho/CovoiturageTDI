@@ -14,17 +14,21 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Configuration;
 
+
 namespace Covoiturage.Controllers
 {
     public class utilisateursController : Controller
     {
         private covoiturageEntities db = new covoiturageEntities();
         private static readonly string hash = new Random().Next().ToString();
-        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["RedaConnectionString"].ConnectionString;
+        //private static readonly string connectionString = ConfigurationManager.ConnectionStrings["RedaConnectionString"].ConnectionString;
 
-        //SqlConnection con = new SqlConnection();
-        //SqlCommand com = new SqlCommand();
-        //SqlDataReader dr;
+        //SqlConnection con = new sqlconnection();
+        //sqlcommand com = new sqlcommand();
+        //sqldatareader dr;
+        SqlConnection con = new SqlConnection();
+        SqlCommand com = new SqlCommand();
+        SqlDataReader dr;
 
 
         // GET: utilisateurs
@@ -235,10 +239,10 @@ namespace Covoiturage.Controllers
             return str;
         }
 
-        //void connectionString()
-        //{
-        //    con.ConnectionString = "data source =DESKTOP-Q3F1QCV; initial catalog = covoiturage; integrated security = true;";
-        //}
+        private void connectionString()
+        {
+            con.ConnectionString = "Data Source=DESKTOP-DJJ9DHM\\SQLEXPRESS;Initial Catalog=covoiturage;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        }
 
         public ActionResult AddUtilisateur(AccountSignUp acc, FormCollection fc)
         {
@@ -261,102 +265,102 @@ namespace Covoiturage.Controllers
                 //"hnaya khesna ntal3o msg beli deja kayen"
             }
 
-            using (SqlConnection connection = new SqlConnection())
+            //using (SqlConnection connection = new SqlConnection())
+            //{
+            //    connection.ConnectionString = connectionString;
+            //    using (SqlCommand command = new SqlCommand())
+            //    {
+            //        command.Connection = connection;
+            //        command.CommandType = CommandType.Text;
+            //        string query = "insert into utilisateur (email,nom,prenom,mdp,valide) values (@email,@nom,@prenom,@password,0)";
+            //        command.CommandText = query;
+            //        string password = encrypte(acc.Password, "myKey");
+            //        command.Parameters.Add(new SqlParameter()
+            //        {
+            //            ParameterName = "@email",
+            //            Value = acc.Email
+            //        });
+            //        command.Parameters.Add(new SqlParameter()
+            //        {
+            //            ParameterName = "@name",
+            //            Value = acc.Nom.Replace("'", "''")
+            //        });
+            //        command.Parameters.Add(new SqlParameter()
+            //        {
+            //            ParameterName = "@prenom",
+            //            Value = acc.Prenom.Replace("'", "''")
+            //        });
+            //        command.Parameters.Add(new SqlParameter()
+            //        {
+            //            ParameterName = "@password",
+            //            Value = password
+            //        });
+            //        if (connection.State != ConnectionState.Open)
+            //        {
+            //            connection.Open();
+            //        }
+            //        command.ExecuteNonQuery();
+            //        connection.Close();
+            //    }
+            //}
+            connectionString();
+            con.Open();
+            com.Connection = con;
+            string password = encrypte(acc.Password, "myKey");
+            com.CommandText = "insert into utilisateur (email,nom,prenom,mdp,valide) values ('" + acc.Email + "','" + acc.Nom.Replace("'", "''") + "','" + acc.Prenom.Replace("'", "''") + "','" + password + "',0)";
+            com.ExecuteNonQuery();
+
+            //using (SmtpClient smtpClient = new SmtpClient("smtp.live.com"))
+            //{
+            //    MailMessage mailMessage = new MailMessage
+            //    {
+            //        From = new MailAddress("covoiturage-maroc@outlook.com")
+            //    };
+            //    mailMessage.To.Add(acc.Email);
+            //    mailMessage.Subject = "Inscription sur le site de covoiturage en ligne";
+            //    mailMessage.IsBodyHtml = true;
+            //    string htmlBody = "<h1>Inscription</h1> Merci pour votre inscription dans notre site cliquez ou copiez le lien suivant dans votre navigteur <a href='https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + "'>https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + " </a>votre inscription";
+            //    mailMessage.Body = htmlBody;
+            //    smtpClient.Port = 587; //64   587
+            //    smtpClient.UseDefaultCredentials = false;
+            //    smtpClient.Credentials = new System.Net.NetworkCredential("covoiturage-maroc@outlook.com", "Covoituragemaroc");
+            //    smtpClient.EnableSsl = true;
+            //    try
+            //    {
+            //        smtpClient.Send(mailMessage);
+
+            //    }
+            //    catch (Exception)
+            //    {
+            //        Response.Write("Erreur d'envoi de message");
+            //    }
+            //}           
+
+            SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
+            var mail = new MailMessage
             {
-                connection.ConnectionString = connectionString;
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    string query = "insert into utilisateur (email,nom,prenom,mdp,valide) values (@email,@nom,@prenom,@password,0)";
-                    command.CommandText = query;
-                    string password = encrypte(acc.Password, "myKey");
-                    command.Parameters.Add(new SqlParameter()
-                    {
-                        ParameterName = "@email",
-                        Value = acc.Email
-                    });
-                    command.Parameters.Add(new SqlParameter()
-                    {
-                        ParameterName = "@name",
-                        Value = acc.Nom.Replace("'", "''")
-                    });
-                    command.Parameters.Add(new SqlParameter()
-                    {
-                        ParameterName = "@prenom",
-                        Value = acc.Prenom.Replace("'", "''")
-                    });
-                    command.Parameters.Add(new SqlParameter()
-                    {
-                        ParameterName = "@password",
-                        Value = password
-                    });
-                    if (connection.State != ConnectionState.Open)
-                    {
-                        connection.Open();
-                    }
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                }
+                From = new MailAddress("covoiturage-maroc@outlook.com")
+            };
+            mail.To.Add(acc.Email);
+
+            mail.Subject = "Inscription sur le site de covoiturage en ligne";
+            mail.IsBodyHtml = true;
+            string htmlBody;
+            htmlBody = "<h1>Inscription</h1> Merci pour votre inscription dans notre site cliquez ou copiez le lien suivant dans votre navigteur <a href='https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + "'>https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + " </a>votre inscription";
+            mail.Body = htmlBody;
+            SmtpServer.Port = 587; //64   587
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("covoiturage-maroc@outlook.com", "Covoituragemaroc");
+            SmtpServer.EnableSsl = true;
+            try
+            {
+                SmtpServer.Send(mail);
+
             }
-            //connectionString();
-            //con.Open();
-            //com.Connection = con;
-
-            //com.CommandText = "insert into utilisateur (email,nom,prenom,mdp,valide) values ('" + acc.Email + "','" + acc.Nom.Replace("'", "''") + "','" + acc.Prenom.Replace("'", "''") + "','"  + password + "',0)";
-            //com.ExecuteNonQuery();
-
-            using (SmtpClient smtpClient = new SmtpClient("smtp.live.com"))
+            catch (Exception)
             {
-                MailMessage mailMessage = new MailMessage
-                {
-                    From = new MailAddress("covoiturage-maroc@outlook.com")
-                };
-                mailMessage.To.Add(acc.Email);
-                mailMessage.Subject = "Inscription sur le site de covoiturage en ligne";
-                mailMessage.IsBodyHtml = true;
-                string htmlBody = "<h1>Inscription</h1> Merci pour votre inscription dans notre site cliquez ou copiez le lien suivant dans votre navigteur <a href='https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + "'>https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + " </a>votre inscription";
-                mailMessage.Body = htmlBody;
-                smtpClient.Port = 587; //64   587
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new System.Net.NetworkCredential("covoiturage-maroc@outlook.com", "Covoituragemaroc");
-                smtpClient.EnableSsl = true;
-                try
-                {
-                    smtpClient.Send(mailMessage);
-
-                }
-                catch (Exception)
-                {
-                    Response.Write("Erreur d'envoi de message");
-                }
-            }           
-
-            //SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
-            //var mail = new MailMessage
-            //{
-            //    From = new MailAddress("covoiturage-maroc@outlook.com")
-            //};
-            //mail.To.Add(acc.Email);
-
-            //mail.Subject = "Inscription sur le site de covoiturage en ligne";
-            //mail.IsBodyHtml = true;
-            ////string htmlBody;
-            ////htmlBody = "<h1>Inscription</h1> Merci pour votre inscription dans notre site cliquez ou copiez le lien suivant dans votre navigteur <a href='https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + "'>https://localhost:44318/validation?login=" + acc.Email + "&hash=" + hash + " </a>votre inscription";
-            //mail.Body = htmlBody;
-            //SmtpServer.Port = 587; //64   587
-            //SmtpServer.UseDefaultCredentials = false;
-            //SmtpServer.Credentials = new System.Net.NetworkCredential("covoiturage-maroc@outlook.com", "Covoituragemaroc"); 
-            //SmtpServer.EnableSsl = true;
-            //try
-            //{
-            //    SmtpServer.Send(mail);
-
-            //}
-            //catch (Exception)
-            //{
-            //    Response.Write("Erreur d'envoi de message");
-            //}
+                Response.Write("Erreur d'envoi de message");
+            }
 
 
             return View("../Home/MerciIscription");
